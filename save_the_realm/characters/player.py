@@ -1,3 +1,8 @@
+import random
+
+def dice_roll(modifier = 0, dice = (1, 20)):
+    return random.randint(dice[0], dice[1]) + modifier
+
 class Player:
     def __init__(self, name, max_hp, att, dmg_dice, dmg, init, ac, xp, gold):
         self.name = name

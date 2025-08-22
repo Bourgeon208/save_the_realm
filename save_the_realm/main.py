@@ -1,5 +1,5 @@
 import time
-
+import random
 from characters import player, monster
 from maps import labyrinth, realm, movement
 from combats import encounter
@@ -64,27 +64,27 @@ while player_1.hp > 0:
         if new_pos == "G":
             print("You encounter a Goblin, he's attacking you !")
             print("(ง •̀_•́)ง ")
-            monster = monster.Monster("Goblin", 5, 1, (1,4), 0, 1, 11, 4, (1,10))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            goblin = monster.Monster("Goblin", 5, 1, (1,4), 0, 1, 11, 4, (1,10))
+            combat = encounter.Encounter(goblin, player_1)
+            encounter_result = combat.combat()
         elif new_pos == "C":
             print("You encounter a ferocious Orc, he's attacking you !")
             print("(҂ `з´ )҂ ")
-            monster = monster.Monster("Orc", 12, 3, (1,6), 2, 0, 12, 12, (5,25))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            orc = monster.Monster("Orc", 12, 3, (1,6), 2, 0, 12, 12, (5,25))
+            combat = encounter.Encounter(orc, player_1)
+            encounter_result = combat.combat()
         elif new_pos == "O":
             print("You encounter a huge Ogre, he's attacking you !")
             print("ᕦ(ò_óˇ)ᕤ")
-            monster = monster.Monster("Ogre", 30, 5, (1,8), 4, -2, 14, 30, (20,50))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            ogre = monster.Monster("Ogre", 30, 5, (1,8), 4, -2, 14, 30, (20,50))
+            combat = encounter.Encounter(ogre, player_1)
+            encounter_result = combat.combat()
         elif new_pos == "D":
             print("You encounter a mighty Dragon, he's attacking you !")
             print("ϞϞϞϞ(๑•̀д•́๑)∩")
-            monster = monster.Monster("Dragon", 80, 8, (1,12), 6, 8, 18, 200, (800,10000))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            dragon = monster.Monster("Dragon", 80, 8, (1,12), 6, 8, 18, 200, (800,10000))
+            combat = encounter.Encounter(dragon, player_1)
+            encounter_result = combat.combat()
             if encounter_result:
                 print("Impressive, you've done it, the Dragon is dead !")
                 print("Well done, you're now the Hero of the realm \o/")
@@ -104,9 +104,9 @@ while player_1.hp > 0:
                 init = 12
             print("YOU SHALL DIE, INSECT !!!")
 
-            monster = monster.Monster("Demon", 180, 13, (3,18), 6, init, 22, 500, (8000,20000))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            demon = monster.Monster("Demon", 180, 13, (3,18), 6, init, 22, 500, (8000,20000))
+            combat = encounter.Encounter(demon, player_1)
+            encounter_result = combat.combat()
             if encounter_result:
                 print("IT'S IMPOSSIBLE !!!")
                 print("I shall haunt you mind and take control of your body HAHAHAHAHAHA !")
@@ -125,18 +125,18 @@ while player_1.hp > 0:
             print("What is that Demon !? Kill him !")
             print("You encounter a Royal Guard, he's attacking you !")
             print("<--(≖ڡ≖)")
-            monster = monster.Monster("Royal Guard", 120, 12, (1,10), 5, 10, 24, 100, (1,500))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            royal_guard = monster.Monster("Royal Guard", 120, 12, (1,10), 5, 10, 24, 100, (1,500))
+            combat = encounter.Encounter(royal_guard, player_1)
+            encounter_result = combat.combat()
 
         elif new_pos == "K":
             print(f"{player_1.name}, is that you ?! What happened to you ?!")
             print(f"I shall put an end you misery my poor boy...")
             print("You face the King, he's attacking you ! ")
             print("♔♔♔ ( ͡° ͜ʖ ͡°) ♔♔♔")
-            monster = monster.Monster("The King", 250, 14, (1,20), 8, 20, 25, 1000, (100000,1000000))
-            encounter = encounter.Encounter(monster, player_1)
-            encounter_result = encounter.combat()
+            king = monster.Monster("The King", 250, 14, (1,20), 8, 20, 25, 1000, (100000,1000000))
+            combat = encounter.Encounter(king, player_1)
+            encounter_result = combat.combat()
             if encounter_result:
                 print("-----------------------")
                 print("---- CHARACTER'S STATS ----")

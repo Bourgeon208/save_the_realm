@@ -1,13 +1,13 @@
 import random
 
+def dice_roll(modifier = 0, dice = (1, 20)):
+    return random.randint(dice[0], dice[1]) + modifier
+
 def flee(coward, tracker):
     if dice_roll(coward.init) > dice_roll(tracker.init):
         return True
     else:
         return False
-
-def dice_roll(modifier = 0, dice = (1, 20)):
-    return random.randint(dice[0], dice[1]) + modifier
 
 def att_roll(attacker, target):
     att_roll = dice_roll(attacker.att)
