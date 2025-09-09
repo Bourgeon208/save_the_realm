@@ -1,23 +1,39 @@
 import random
+from .character import Character
 
 def dice_roll(modifier = 0, dice = (1, 20)):
     return random.randint(dice[0], dice[1]) + modifier
 
-class Player:
-    def __init__(self, name, max_hp, att, dmg_dice, dmg, init, ac, xp, gold):
-        self.name = name
-        self.max_hp = max_hp
-        self.hp = max_hp
-        self.att = att
-        self.dmg = dmg
-        self.dmg_dice = dmg_dice
-        self.init = init
-        self.ac = ac
-        self.xp = xp
-        self.gold = gold
+class Player(Character):
+    def __init__(self, name, hp, att, dmg_dice, dmg, init, ac, xp, gold):
+        super().__init__(name, hp, att, dmg_dice, dmg, init, ac, xp, gold)
+        self.max_hp = hp
+        self.hp = hp
         self.level = 1
-        self.armor = False
-        self.sword = False
+        self.armor = "Leather"
+        self.weapon = "Spear"
+        self.supplies = 1
+        self.potion = 0
+        # self.inventory = {"Supplies" : 1, "Weapon" : "Spear", "Armor" : "Leather", "Potions" : 0}
+
+    def att_roll(self, target):
+        return super().att_roll(target)
+
+    def gain_xp(self, xp):
+        print(f'You earn {xp} experience')
+        self.xp += xp
+        self.level_up_check()
+
+    def loot_gold(self, gold):
+        gold = dice_roll(dice=gold)
+        self.gold += gold
+        print(f'You loot {gold} gold pieces for a total of {self.gold} gold pieces')
+
+    def flee(self, tracker):
+        if dice_roll(self.init) > dice_roll(tracker.init):
+            return True
+        else:
+            return False
 
     def level_up_check(self):
         print(f'You currently have {self.xp} experience points.')
@@ -46,43 +62,43 @@ class Player:
                     self.ac += 1
                 if self.level % 4 == 0:
                     self.dmg += 1
-
-    def buy_item(self, item):
-        if item == "Sword":
-            if self.sword == True:
-                print("You already have a sword.")
-            elif self.gold < 50:
-                print("You don't have enough gold.")
-            else:
-                print("You bought a sword.")
-                self.dmg_dice = (1,10)
-                self.gold -= 50
-                self.sword = True
-
-        if item == "Armor":
-            if self.armor == True:
-                print("You already have an armor.")
-            elif self.gold < 80:
-                print("You don't have enough gold.")
-            else:
-                print("You bought an armor.")
-                self.ac += 2
-                self.gold -= 80
-                self.armor = True
-
-        if item == "Potion":
-            if self.gold < 50:
-                print("You don't have enough gold.")
-            else:
-                print("You bought and drink a potion.")
-                self.hp = self.max_hp
-                self.gold -= 50
-
-        if item == "Elixir of life":
-            if self.gold < 400:
-                print("You don't have enough gold.")
-            else:
-                print("You bought and drink a potion.")
-                self.max_hp = self.max_hp + dice_roll(dice=(2,12))
-                self.hp = self.max_hp
-                self.gold -= 400
+    #
+    # def buy_item(self, item):
+    #     if item == "Sword":
+    #         if self.sword == True:
+    #             print("You already have a sword.")
+    #         elif self.gold < 50:
+    #             print("You don't have enough gold.")
+    #         else:
+    #             print("You bought a sword.")
+    #             self.dmg_dice = (1,10)
+    #             self.gold -= 50
+    #             self.sword = True
+    #
+    #     if item == "Armor":
+    #         if self.armor == True:
+    #             print("You already have an armor.")
+    #         elif self.gold < 80:
+    #             print("You don't have enough gold.")
+    #         else:
+    #             print("You bought an armor.")
+    #             self.ac += 2
+    #             self.gold -= 80
+    #             self.armor = True
+    #
+    #     if item == "Potion":
+    #         if self.gold < 50:
+    #             print("You don't have enough gold.")
+    #         else:
+    #             print("You bought and drink a potion.")
+    #             self.hp = self.max_hp
+    #             self.gold -= 50
+    #
+    #     if item == "Elixir of life":
+    #         if self.gold < 400:
+    #             print("You don't have enough gold.")
+    #         else:
+    #             print("You bought and drink a potion.")
+    #             self.max_hp = self.max_hp + dice_roll(dice=(2,12))
+    #             self.hp = self.max_hp
+    #             self.gold -= 400

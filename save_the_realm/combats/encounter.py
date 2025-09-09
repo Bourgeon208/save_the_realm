@@ -1,5 +1,7 @@
 import random
-from .player_actions import *
+import os
+
+clear = lambda:os.system("clear")
 
 class Encounter:
     def __init__(self, monster, player):
@@ -24,7 +26,7 @@ class Encounter:
                 return False
 
             if monster_init > player_init:
-                att_roll(self.monster, self.player)
+                self.monster.att_roll(self.player)
                 if self.player.hp < 1:
                     self.end_combat(death=True)
                     return False
@@ -38,16 +40,18 @@ class Encounter:
                 elif self.combat_fled:
                     return False
                 else:
-                    att_roll(self.monster, self.player)
-
+                    self.monster.att_roll(self.player)
+            clear()
 
     def player_turn(self):
-        print("a) Attack, b) Flee")
-        inp = input("What do you want to do ?").lower()
+        options = {"a", "b"}
+        while (inp := input("a) Attack, b) Flee\nWhat do you want to do ? ").lower()) not in options:
+            print("Wrong input.")
+
         if inp == "a":
-            att_roll(self.player, self.monster)
+            self.player.att_roll(self.monster)
         if inp == "b":
-            if flee(self.player, self.monster):
+            if self.player.flee(self.monster):
                 self.end_combat(flee = True)
             else:
                 print('You failed to escape the encounter.')
@@ -61,9 +65,5 @@ class Encounter:
             print('You died.')
         else:
             print('You won !')
-            print(f'You earn {self.monster.xp} experience')
-            gold = dice_roll(dice = self.monster.gold)
-            self.player.gold += gold
-            print(f'You loot {gold} gold pieces for a total of {self.player.gold} gold pieces')
-            self.player.xp += self.monster.xp
-            self.player.level_up_check()
+            self.player.loot_gold(self.monster.gold)
+            self.player.gain_xp(self.monster.xp)

@@ -10,11 +10,9 @@ def movement(map, player):
             player_col = l.index("X")
         print("".join(l))
 
-    inp = input("Where to go ?").lower()
-
-    while inp not in ["z", "q", "s", "d", "c"]:
+    options = {"z", "q", "s", "d", "c", "r"}
+    while (inp := input("Where to go ? ").lower()) not in options:
         print("Wrong input.")
-        inp = input("Where to go ?").lower()
 
     clear()
     new_player_line = player_line
@@ -36,5 +34,7 @@ def movement(map, player):
         for var, value in vars(player).items():
             print(f"{var} = {value}")
         print("---------------------------")
+    elif inp == "r":
+        print("You rest for the a while.")
 
     return new_player_line, new_player_col, player_line, player_col
